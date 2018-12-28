@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.bit.member.dao.MemberDao">
+  
+  <select id="getMemberList" resultType="com.bit.member.model.MemberDto" >
+  
+	select * from (select rownum rn, mno, mid, mname, birthday, gender, phone, zipcode, address, to_char(regdate, 'yy/mm/dd hh24:mi:ss') regdate
+	from board_member
+	
+	<if test="!paramMap.searchKeyword.equals('none')">
+			<where>
+				mid like '%'|| #{paramMap.searchKeyword} ||'%'
+				or mname like '%'|| #{paramMap.searchKeyword} ||'%'
+			</where>
+	</if>
+	<![CDATA[
+	order by mno) a
+	where rn >= ((#{cri.page}-1)*10)+1 and rn <= #{cri.page} * 10
+	]]>
+  </select>
+  
+  
+  <insert id="joinMember" parameterType="com.bit.member.model.MemberDto">
+	insert into board_member(mno, mid, mname, mpassword,birthday, gender, phone, zipcode, address, regdate)
+	values (seq_member.nextval, #{mid}, #{mname}, #{mpassword}, #{birthday}, #{gender}, #{phone}, #{zipcode}, #{address}, sysdate)
+  </insert>
+  
+  
+  <select id="loginCheck" parameterType="com.bit.member.model.MemberDto" resultType="int">
+  	select count(*) from board_member
+	where mid=#{mid} and mpassword=#{mpassword}
+  </select>
+  
+  <select id="login" parameterType="com.bit.member.model.MemberDto" resultType="com.bit.member.model.MemberDto">
+    select mid,mname from board_member
+	where mid=#{mid} and mpassword=#{mpassword}
+  </select>
+  
+  <select id="getTotalCount" resultType="int">
+  select count(*) from board_member
+  	<if test="!_parameter.equals('none')">
+			<where>
+				mid like '%'|| #{_parameter} ||'%'
+				or mname like '%'|| #{_parameter} ||'%'
+			</where>
+	</if>
+  
+  </select>
+
+  
+  </mapper>
