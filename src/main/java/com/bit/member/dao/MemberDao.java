@@ -21,4 +21,5 @@ public interface MemberDao {
 	
 	int getTotalCount(String searchKeyword);
 	
+	String getTime();
 }

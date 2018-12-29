@@ -17,4 +17,5 @@ public interface MemberService {
 	MemberDto login(MemberDto memberDto);
 
 	int getTotalCount(String searchKeyword);
+	String getTime();
 }

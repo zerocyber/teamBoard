@@ -49,6 +49,10 @@
 	</if>
   
   </select>
+  
+  <select id="getTime" resultType="string">
+  select sysdate from dual
+  </select>
 
   
   </mapper>

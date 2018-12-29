@@ -58,6 +58,11 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalCount(String searchKeyword) {
 		return sqlSession.getMapper(MemberDao.class).getTotalCount(searchKeyword);
 	}
+
+	@Override
+	public String getTime() {
+		return sqlSession.getMapper(MemberDao.class).getTime();
+	}
 	
 
 }

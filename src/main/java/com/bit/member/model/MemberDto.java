@@ -1,5 +1,8 @@
 package com.bit.member.model;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class MemberDto {
 
 	private int mno;
