@@ -3,6 +3,7 @@ package com.bit.board;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,25 +16,27 @@ public class DBTest {
 
 	@Autowired
 	private MemberService memberSerivice;
-
+	
 	@Test
 	public void insertTest() {
 		
-		for(int i=0; i< 30; i++) {
+		BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
+		for(int i=1; i < 200; i++) {
+			
 			
 			MemberDto memberDto = new MemberDto();
-			memberDto.setMid("유저"  + i);
-			memberDto.setMpassword("1234");
-			memberDto.setMname("이름" + i);
-			memberDto.setBirthday("1989-07-01");
-			memberDto.setGender("남자" + i);
+			memberDto.setMid("테스트"  + i);
+		    String pwd =  bcryptPasswordEncoder.encode("abc12345");
+		    memberDto.setMpassword(pwd);
+			memberDto.setMname("유저" + i);
+			memberDto.setBirthday("2018-01-02");
+			memberDto.setGender("남자");
 			memberDto.setPhone("010-1234-5678");
-			memberDto.setZipcode("120-859");
-			memberDto.setAddress("서울시 서대문구 홍제동");
+			memberDto.setZipcode("123-456");
+			memberDto.setAddress("서울시 강남구");
 			
 			memberSerivice.joinMember(memberDto);
 		}
-
 	}
 
 	@Test

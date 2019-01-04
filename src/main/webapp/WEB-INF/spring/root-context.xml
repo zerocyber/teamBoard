@@ -14,17 +14,17 @@
 	<context:component-scan
 		base-package="com.bit.**.service" />
 
-	 <bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean"> 
-		<property name="jndiName" value="java:comp/env/jdbc/bit"/> </bean>
+<!-- 	 <bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="java:comp/env/jdbc/bit"/> </bean> -->
 
  	<!-- 변경된 datasouce -->	
-<!-- 	<bean id="ds"
+	<bean id="ds"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
 		<property name="username" value="system"></property>
 		<property name="password" value="8789"></property>
-	</bean> -->
+	</bean>
 
 	<bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
