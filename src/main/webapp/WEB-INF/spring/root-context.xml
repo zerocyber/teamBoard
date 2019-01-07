@@ -31,6 +31,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:com/bit/config/mybatis/member.xml</value>
+				<value>classpath:com/bit/config/mybatis/board.xml</value>
 			</list>
 		</property>
 

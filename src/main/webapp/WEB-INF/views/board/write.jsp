@@ -41,8 +41,9 @@
 
 <body>
     <form action="/board/write" method="post" id="insertBoardFrm" enctype="multipart/form-data">
+    	<span>글쓴이</span><input type="text" name="mid" placeholder="글쓴이 입력">
     	<span>제목</span><input type="text" name="title" placeholder="제목 입력">
-        <textarea name="editor" id="editor" style="width: 700px; height: 400px;"></textarea>
+        <textarea name="content" id="editor" style="width: 700px; height: 400px;"></textarea>
         <input type="button" id="insertBoard" value="등록" />
     </form>
 

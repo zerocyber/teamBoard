@@ -4,34 +4,58 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.board.model.BoardDto;
+import com.bit.board.service.BoardService;
 import com.bit.member.model.MemberDto;
-
 
 @Controller
 public class BoardController {
 
+	@Autowired
+	BoardService boardService;
+	
+	@GetMapping("/board/list")
+	public void list(Model model) {
+		List<BoardDto> list = boardService.list();
+		model.addAttribute("list", list);
+		System.out.println("list get.......");
+	}
+	
+	@GetMapping("/board/view")
+	public void view(@RequestParam int no, Model model) {
+		System.out.println("view get.......");
+		BoardDto boardDto = boardService.view(no);
+		model.addAttribute("board", boardDto);
+	}
 	
 	@GetMapping("/board/write")
 	public void write() {
-		System.out.println("write get...............");
+		
 	}
 	
 	@PostMapping("/board/write")
-	public void write(MemberDto memberDto) {
+	public String write(BoardDto boardDto) {
 		System.out.println("write post...............");
+		boardService.write(boardDto);
 		
+		return "redirect:/board/list";
 	}
+	
 	
     // 다중파일업로드
     @RequestMapping(value = "/file_uploader_html5.do",
