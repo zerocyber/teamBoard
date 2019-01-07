@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.board.model.BoardDto;
 import com.bit.board.service.BoardService;
-import com.bit.member.model.MemberDto;
 
 @Controller
 public class BoardController {
@@ -33,12 +32,10 @@ public class BoardController {
 	public void list(Model model) {
 		List<BoardDto> list = boardService.list();
 		model.addAttribute("list", list);
-		System.out.println("list get.......");
 	}
 	
 	@GetMapping("/board/view")
 	public void view(@RequestParam int no, Model model) {
-		System.out.println("view get.......");
 		BoardDto boardDto = boardService.view(no);
 		model.addAttribute("board", boardDto);
 	}
@@ -50,9 +47,7 @@ public class BoardController {
 	
 	@PostMapping("/board/write")
 	public String write(BoardDto boardDto) {
-		System.out.println("write post...............");
 		boardService.write(boardDto);
-		
 		return "redirect:/board/list";
 	}
 	
@@ -68,7 +63,7 @@ public class BoardController {
             // 파일명을 받는다 - 일반 원본파일명
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
-            String filePath = "C:/git/test/src/main/webapp/resources/photoUpload/"; //배포시 실제로 저장될 경로를 지정
+            String filePath = "C:/devtool/apache-tomcat-9.0.13/webapps/ROOT/resources/photoUpload/"; //배포시 실제로 저장될 경로를 지정
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
                           .format(System.currentTimeMillis()))
                           .append(UUID.randomUUID().toString())
@@ -86,7 +81,7 @@ public class BoardController {
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
               .append("&sFileName=").append(oldName)
-              .append("&sFileURL=").append("http://localhost:8888/resources/photoUpload/")
+              .append("&sFileURL=").append("http://192.168.0.42:8090/resources/photoUpload/")
         .append(saveName);
         } catch (Exception e) {
             e.printStackTrace();
